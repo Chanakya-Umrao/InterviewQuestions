@@ -1,0 +1,83 @@
+1.difference between jar and war
+2.how to debug java application in production
+3.how to deploy the application in production using docker images
+4.all spring boot annotations
+5.java 8 features
+6.difference between @ComponentScan and @Service 
+7.@Transactional
+8.string piglate coding question
+9.move zeroes to the right in array without changing the order of elements
+10.LRU cache implementation
+11.first non repeating/unique character in a string coding question
+12.pagination in detail
+13.how to get production database in local system
+14.spring boot features
+15.difference between put and patch
+16.what is idempotent in patch
+17.https status codes
+18.how to split an array into subarray of n didgits coding question
+19.flatten a array of object into integer array coding question
+20.design a java class/oops for deck of cards
+21.write a function that compares two cards and return the card with higher rank coding problem
+22.how to get the max salary from employee table in each department. also handle the case where 2 emp have max salary
+23.can we use employee class as a key in hashmap
+24.server side pagination
+25.advantages of pagination
+26.best datastructure for searching
+27.how to implement paging in mysql
+28.deadlocks
+29.synchronization and its types
+30.difference between synchronized hashmap and concurrent hashmap
+31.thread executor in detail
+32.hashcode and equals implementation
+33.creation of singleton class using reflection coding problem
+34.when to use comparable and when to use comparator and if we use both,which has higher precedence
+35.polymorphism and its types
+36.how to delete nth node from the ending of linked list
+37.print the  middle element of the linked list
+38.treemap in detail. what we have to implement in class definition if we want to make that class as key in treemap
+39.create a class which contain firstName,lastName,DOB and contact. write a method to print non duplicate record which does not have same DOB
+40.dependency injection with example
+41.bean
+42.color filled algorithm, flood fill algorithm
+43.design DB of swiggy
+44.common character between string coding question
+45.valid paranthesis coding problem
+46.cycle detection in linked list coding question
+47.procedure in mysql
+48.locks in mysql
+49.webservices
+50.how to store array in json format
+51.java collections
+52.difference between arraylist and hashmap
+53.triggers in mysql
+54.indexing in mysql
+55.cursor in mysql
+56.encapsulation program
+57.abstract class program
+58.abstract class vs interface
+59.how to create custom exception
+60.multithreading implementation using runnable interface
+61.five transaction commands
+62.difference between truncate, delete and drop
+63.how to call procedure from java program
+64.create custom exception divide by zero
+65.multithreading example in java
+66.how to integrate swagger in java/spring boot
+67.jwt authentication implementation in spring boot
+68.user authentication in spring boot
+69.stored procedure
+70.what is callablle statement
+71.what is executeQuery in callable statement 
+72.design a java class to make sure only one object of that class and only one object of child class can be created, if we try to create the second object of the class itself or second object of any child class, it should throw an exception
+73.how to sort List<Employee> on the basis of id,name,salary using comparable and comparator
+74.how to create your own threadExecutor service 
+75.create a immutable class
+76.what is dynamic method dispatch in java
+77.what is transactions in spring
+78.there are two table t1 and t2 having one column number, write the query to find the numbers and its count
+79.what is functional interface
+80.spring mvc architecture
+81.what is default method and how to solve the diomand problem in java
+82.what is the difference between UNION and UNION ALL
+
