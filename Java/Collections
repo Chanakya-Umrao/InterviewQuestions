@@ -1,0 +1,269 @@
+A collection is an object that represents a group of objects (such as the classic Vector class). A collections framework is a unified
+architecture for representing and manipulating collections, enabling collections to be manipulated independently of
+implementation details.
+
+Internal Working of HashMap
+
+When we initialize hashmap a sort of list of certain size is created, now once we place key value using put
+a sort of hashcode is generated for it and based on that we get an index, based on that index we store a sort of linked list
+having hashcode, key, value and next referring to next linked list.
+
+Now what could happen is that we get the same hashcode as already present and then the same index is slotted, in that
+case we check whether key is same, if key is same we update the new value else we store the new linked list
+in the form of again hashcode, key value and next but the previous list next now points to this.
+
+In Hashset, when we initialize hashset then internally a hashmap is initialized and when we add in hashset then key is the
+element we are storing and value is some constant.
+
+
+Set vs List
+
+List stores in insertion order, set does not
+The list implementation allows us to add the same or duplicate elements but set does not.
+List allows us to add any number of null values, set allows us to store one null value.
+The List implementation classes are LinkedList and ArrayList where as set implementation classes are
+TreeSet, HashSet and LinkedHashSet.
+We can get the element of a specified index from the list using the get() method but we cannot in case of set.
+
+What would happen if suppose
+ArrayList<Integer> a = new ArrayList<>(2);
+a.add(1)
+a.add(2)
+a.add(3)
+
+no error in above as array list will just grow in new size.
+
+Internal Working of ArrayList
+ArrayList is a resizable array implementation in java. ArrayList grows dynamically and ensures that there is
+always a space to add elements. The backing data structure of ArrayList is an array of Object classes.
+ArrayList class in Java has 3 constructors. It has its own version of readObject and writeObject methods.
+Internally an ArrayList uses an Object[] Array which is an array of objects. All operation like deleting, adding,
+and updating the elements happens in this Object[] array.
+
+Constructors
+To create an ArrayList, First need to create an object of the ArrayList class. ArrayList contains 3 types of constructors in
+Java 8
+
+ArrayList(): This constructor is to initialize an empty List.
+ArrayList(int capacity): In this constructor, we can pass capacity as a parameter, used to initialize the capacity by the user.
+ArrayList(Collection c): In this constructor, we can pass a Collection c as a parameter, In which an Array list will contain
+the elements of Collection c.
+
+When an element is added to array list it first checks whether it can accommodate that element or whether it need to grow, in case capacity
+has to be increased, it calls the grow method which will add the size by 50% of current size, there will be new array of that size created
+and then object array using arrays.copy old object element would be added and that new array will be returned, eg size is 15, then 15/2 = 7, so
+new size will be 22.
+
+When an array list element is removed then space created by removal of that element has to be filled, so this is done by shifting elements to the left.
+
+A question can be asked that whether
+
+ArrayList<Integer> a = new ArrayList<>();
+for(int i=0;i<100000;i++) {
+a.add(i);
+}
+
+ArrayList<Integer> a = new ArrayList<>(100000);
+for(int i=0;i<100000;i++) {
+a.add(i);
+}
+
+which one takes more time
+
+1st one takes more time as grow method will be repeatedly called due to which new array will be repeatedly created.
+
+can we modify collection returned from Arrays.asList("a", "b");
+suppose List<String> l = Arrays.asList("a", "b"); // this will give java.lang.unsupported exception as this is unmodifiable collection
+to correct this use
+List<String> l = new LinkedList<>(Arrays.asList("a", "b"));
+
+Fail Fast and Fail Safe Iterators
+
+These are two types of iterators java provides
+
+Fail Fast = will abort the operation as soon as error is reported
+Fail Safe = will not abort the operation on seeing error, will rather try to hide the error
+
+The Concurrent modification in Java is to modify an object concurrently while another task is running over it.
+In simple terms, concurrent modification is the process of modifying objects while another thread is running over them.
+It will change the structure of the data collection, either by removing, adding, or updating the value of the elements in
+the collection.
+
+eg
+Fail Fast
+      List<Integer> a = new ArrayList<>();
+        a.add(2);
+        a.add(3);
+
+        for(int i : a) {
+            a.add(2);
+        }
+
+      Concurrent modification exception will be thrown in above
+
+
+eg
+
+Fail Safe
+
+  List<Integer> a = new ArrayList<>();
+        a.add(2);
+        a.add(3);
+
+        Iterator<Integer> it = a.iterator();
+
+
+        while (it.hasNext()) {
+            Integer i = it.next();
+
+            if(i == 3) {
+                it.remove();
+            }
+        }
+
+  In above no exception would be thrown and 3 would be removed
+
+  suppose we add in list in above situation then again it would be concurrent modification error, to resolve this create a new copyOnWrite arrayList and then
+  add all into that and then add in it
+
+  Most collection from java.util are fail-fast where as most collection from java.concurrent are fail-safe
+
+ HashMap vs HashTable vs Synchronized HashMap vs Concurrent HashMap
+
+ HashMap
+ It is not synchronized
+ No Lock
+ Multiple Threads work
+ One null key, n no. of null values
+ Fail Fast
+ Should be used only in single threaded environment
+
+ HashTable
+ All operations are synchronized
+ Object Lock
+ Single Thread works
+ Null keys not allowed
+ Fail Safe
+ Should not be used anymore
+
+ Synchronized HashMap
+ All operations are synchronized
+ Object level lock
+ Single thread works
+ One null key, n no. of null values
+ Fail Fast
+ Can be used only in multi threaded environment
+
+ Concurrent HashMap
+ Only write operations are Synchronized
+ Segment Lock - how this works? lock will only be while updating and even in this case it will be bucket level lock
+ so if a thread is present in bucket and updating it will lock and if it is empty thread can simply acquire the lock
+ 16 threads perform update and n threads read
+ Null Keys not allowed
+ Fail Safe
+ Should be used in multithreaded environment
+
+
+HashMap vs TreeMap vs LinkedHashMap
+
+HashMap will store in any order
+TreeMap will store in ascending key order
+
+LinkedHashMap will store in insertion order
+
+Map is interface from java.util
+
+
+Which is better to use Linked List or Array List
+ArrayList provides constant time for search operation, so it is better to use ArrayList if searching is more
+frequent operation than add and remove operation. The LinkedList provides constant time for add and remove
+operations. So it is better to use LinkedList for manipulation
+
+
+Difference between comparable and comparator
+
+Comparable
+
+Comparable is interface from java.lang package. We can implement the comparable package on the class we have to
+sort. It has the compareTo method which compares the current object(this) with the object passed in parameter
+It has natural sorting.
+for eg
+public int compareTo(Object o1) {
+return this.empId - o1.empId;
+}
+
+we can only sort based on particular condition. to sort we can simply use collections.sort
+
+Comparator
+It is from java.util package, in this we usually use external class to sort, suppose we sort the object
+based on empId but now we want to sort on the basis of roll number too, so we can create a class for roll number
+sort. It has compare method which takes two parameters
+It has modified sorting
+for eg
+class RollNumber implements Comparator<Object>() {
+    @Override
+    public int compare(Obj1 o1,Obj2 o2) {
+
+    }
+}
+
+
+
+java. lang package is a default package in Java therefore, there is no need to import it explicitly. i.e. without
+importing you can access the classes of this package.
+
+StringBuilder/Buffer do not override hashCode and equals. This means each instance of the object should be a
+unique hash code and the value or state of it does not matter. You should use the String for a key.
+StringBuilder/Buffer is also mutable which is generally not a good idea to use as a key for a HashMap since
+storing the value under it can cause the value to be inaccessible after modification.
+
+Load Factor and Rehashing
+
+Load Factor = Load Factor is factor measured till what HashMap can allow elements to be put before increasing
+it's size. Suppose the total elements are n and total buckets are N, then load factor should be
+n/N < 1. So when this value becomes greater than 1 we rehash
+
+Rehashing = Rehashing is the process of calculating the hashcode of already stored entries to move to a bigger
+size HashMap when load factor is reached, when the number of items crosses the load factor, hashmap doubles
+it's capacity and hashcode is recalculated for previous entries.
+
+Iterators
+Iterators are used in Collection framework in Java to retrieve elements one by one. It can be applied to any
+Collection object. By using Iterator, we can perform both read and remove operations. Iterator must be used
+whenever we want to enumerate elements in all Collection framework implemented interfaces like Set, List,
+Queue, Deque and also in all implemented classes of Map interface. Iterator is the only cursor available
+for entire collection framework. Iterator object can be created by calling iterator() method present in
+Collection interface.
+
+List Iterator
+It is only applicable for List collection implemented classes like arraylist, linked list etc. It provides
+bi-directional iteration. ListIterator must be used when we want to enumerate elements of List. This cursor
+has more functionality(methods) than iterator. ListIterator object can be created by calling listIterator()
+method present in List interface.
+
+
+How to Clone The Object?
+1.Shallow Copy
+2.Deep Copy
+3.Clone
+
+
+How to make HashMap synchronized?
+According to Oracle docs, in order to synchronize HashMap we need to use Collections. synchronizedMap(hashmap).
+It returns a thread safe map backed up by the specified HashMap. Other important point to note that iterator
+should be used in a synchronized block even if we have synchronized the HashMap explicitly.
+
+Difference between BufferedReader and Scanner
+
+Main difference is Scanner constructor takes input of system.in, where as BufferedReader takes input of
+inputstreamreader which takes input of system.in when we have to read input, to convert to int we use
+Integer.parseInt, since BufferedReader takes input from input stream reader, it can also read from files
+here System.in, System is class and in is input stream class. Also since to read we use object of buffered
+reader.read, now if we want integer we need to convert it using Integer.parseInt but scanner classes
+already has methods like sc.nextInt to use.
+
+
+Defining the size of an array is important because it determines the amount of memory that needs to be allocated for
+the array. When you define the size of an array, you are essentially telling the computer how much contiguous memory
+it should reserve to store the elements of the array.
+

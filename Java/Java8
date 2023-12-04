@@ -1,0 +1,119 @@
+1. Java 8 provides many features, some of them are
+Lambda Expressions
+Method references,
+Functional interfaces,
+Stream API,
+Default methods,
+Base64 Encode Decode,
+Static methods in interface,
+Optional class,
+Collectors class,
+ForEach() method,
+
+Lambda Expressions : 
+Anonymous functions that can be referred or shared as an object.
+Lambda expression helps us to write our code in functional style.
+It provides a clear and concise way to implement SAM interface(Single Abstract Method) by using an expression.
+Basically what lambda expression is all about is that we can access functional interface method in a very
+
+For example, let's say you have a functional interface called Calculator with a single method int calculate(int a, int b).
+You can implement this interface using a lambda expression as follows:
+
+Calculator addition = (a, b) -> a + b;
+int result = addition.calculate(2, 3);
+System.out.println(result); // Output: 5
+
+
+What is an anonymous function?
+Anonymous function is a function define as not bound to an identifier. Because,These are a form of nested function
+in allowing access to variables in the scope of the containing function (non-local functions).
+Basically lambda expression is an anonymous function
+
+Method Reference :
+Method that provides implementation of methods within an interface.
+Java 8 Method reference is used to refer method of functional interface . It is compact and easy form of lambda expression.
+Each time when you are using lambda expression to just referring a method, you can replace your lambda expression with
+method reference.
+
+Method references allow you to pass a method or constructor as a parameter without executing it immediately.
+They provide a concise and readable way to represent a method invocation.
+
+There are four types of method references in Java 8:
+
+Reference to a static method:
+
+ClassName::staticMethodName
+Reference to an instance method of a particular object:
+
+instanceReference::instanceMethodName
+Reference to an instance method of an arbitrary object of a particular type:
+
+ClassName::instanceMethodName
+Reference to a constructor:
+
+ClassName::new
+Here are some examples to illustrate the usage of method references:
+
+Reference to a static method:
+// Example: Calling a static method using method reference
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+numbers.forEach(System.out::println);
+
+Functional Interface :
+An Interface that contains only one abstract method is known as functional interface. It can have any number of default and
+static methods. It can also declare methods of object class.
+Types :
+
+Predicate : Results in Boolean
+Consumer : Only takes input, no output
+Function : Takes input and returns output
+Supplier : No input only output
+
+Default Methods
+Methods that allows to have body in interface
+
+Data Time Api
+
+Java8 date time apis - localdate, localtime, localdatetime
+Java 8 introduced new APIs for Date and Time to address the shortcomings of the older java.util.Date and java.util.Calendar.
+previous issues in date/calendar api - threadsafety, were poorly designed, zoned data and time required additional logic
+
+Nashorn
+Deviced variant of javascript in java
+
+Optional :
+Java introduced a new class Optional in Java 8. It is a public final class which is used to deal with NullPointerException
+in Java application. We must import java.util package to use this class. It provides methods to check the presence of value
+for particular variable.
+
+forEach() :
+Java provides a new method forEach() to iterate the elements. It is defined in Iterable and Stream interfaces.
+It is a default method defined in the Iterable interface. Collection classes which extends Iterable interface
+can use forEach() method to iterate elements.
+This method takes a single parameter which is a functional interface. So, you can pass lambda expression as an argument.
+
+//max using stream
+Integer max = Stream.of(1,24,12,15,2).max(Comparator.comparing(Integer :: valueOf)).get();
+
+Stream.distinct method is used to get distinct from a stream
+
+List<Integer> li = someList.Stream().distinct().collect(Collectors.toList());
+
+stream.map() vs stream.flatmap()
+
+we use stream.map() normally when we have to get values or collect values from a list
+suppose we have to get all cities from List<Employees> then we can simply use
+list.stream.map(e -> e.getCity()).Collect(Collectors.toList())
+
+but now suppose we have List<Employee> but cities are like List<String> in Employee class and from here
+we have to collect all the cities and just for this eg suppose we have to collect only one city that
+means we have to flatten the inside of the list to which is List<String>
+
+list.stream.flatMap(e -> e.getCities().stream).collect(Collectors.toSet()); // for getting all the cities
+
+so the function in map is used to return a single value but function in flat map is used to return a stream of value
+flatmap is combination of map and flat operation
+map is used for transformation only but flatmap is used for both transformation and flattening.
+
+
+Difference between comparator and comparable

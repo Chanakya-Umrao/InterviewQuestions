@@ -1,0 +1,244 @@
+What is DataBase
+In computing, a database is an organized collection of data stored and accessed electronically. Small databases can be
+stored on a file system, while large databases are hosted on computer clusters or cloud storage.
+
+DBMS
+DBMS is a collection of programs that facilitates users to create and maintain a database. In other words, DBMS provides
+us an interface or tool for performing different operations such as the creation of a database, inserting data into it,
+deleting data from it, updating the data, etc.
+
+Advantages of DBMS
+Authorization, reduces complexity, provides backup and recovery, data consistency.
+
+Checkpoint in DBMS
+The Checkpoint is a type of mechanism where all the previous logs are removed from the system and permanently stored
+in the storage disk.
+
+RDBMS
+RDBMS stands for Relational Database Management Systems. It is used to maintain the data records and indices in tables.
+RDBMS is the form of DBMS which uses the structure to identify and access data concerning the other piece of data in
+the database. RDBMS is the system that enables you to perform different operations such as- update, insert, delete,
+manipulate and administer a relational database with minimal difficulties.
+
+Types of Database Language
+Data Definition Language (DDL) e.g., CREATE, ALTER, DROP, TRUNCATE, RENAME, etc. All these commands are used for updating
+the data that's why they are known as Data Definition Language.
+
+Data Manipulation Language (DML) e.g., SELECT, UPDATE, INSERT, DELETE, etc. These commands are used for the manipulation
+of already updated data that's why they are the part of Data Manipulation Language.
+
+DATA Control Language (DCL) e.g., GRANT and REVOKE. These commands are used for giving and removing the user access on
+the database. So, they are the part of Data Control Language.
+
+Transaction Control Language (TCL) e.g., COMMIT, ROLLBACK, and SAVEPOINT. These are the commands used for managing
+transactions in the database. TCL is used for managing the changes made by DML.
+
+ACID Properties
+
+ATOMICITY: Atomicity is more generally known as ?all or nothing rule.' Which implies all are considered as one unit, and
+they either run to completion or not executed at all.
+
+CONSISTENCY: This property refers to the uniformity of the data. Consistency implies that the database is consistent before
+and after the transaction.
+
+ISOLATION: This property states that the number of the transaction can be executed concurrently without leading to the
+inconsistency of the database state.
+
+DURABILITY: This property ensures that once the transaction is committed it will be stored in the non-volatile memory
+and system crash can also not affect it anymore.
+
+Keys
+Primary key: The Primary key is an attribute in a table that can uniquely identify each record in a table. It is
+compulsory for every table.
+
+Candidate key: The Candidate key is an attribute or set of an attribute which can uniquely identify a tuple. The Primary
+key can be selected from these attributes.
+
+Super key: The Super key is a set of attributes which can uniquely identify a tuple. Super key is a superset of the
+candidate key.
+
+Foreign key: The Foreign key is a primary key from one table, which has a relationship with another table.
+It acts as a cross-reference between tables.
+
+Max limit for indexed columns in a table is 16 by mysql
+
+Delete table is logged, every row is logged, drop deletes entire table and is not logged, truncate is similar to delete
+without where and can be rolled back.
+
+Log Meaning?
+Delete statement removes the records one by one and it logs each entry into the transaction log.
+
+MySQL does not have a boolean (or bool) data type. Instead, it converts boolean values into integer data types (TINYINT).
+When you create a table with a boolean data type, MySQL outputs data as 0, if false, and 1, if true.
+
+If strict SQL mode is not enabled and you assign a value to a CHAR or VARCHAR column that exceeds the column's maximum length,
+the value is truncated to fit and a warning is generated.
+
+Strict SQL Mode. Strict mode controls how MySQL handles invalid or missing values in data-change statements such as
+INSERT or UPDATE.
+
+Does JavaScript support thread?
+JavaScript is a single-threaded language because while running code on a single thread, it can be really easy to
+implement as we don't have to deal with the complicated scenarios that arise in the multi-threaded environment like
+a deadlock. Since JavaScript is a single-threaded language, it is synchronous in nature.
+
+Important - in below syntax of rownum is false
+it should be ROW_NUMBER() OVER(ORDER BY column_name)
+
+SQL Questions
+
+1.Select 2nd highest salary from list of employees
+
+ans - Select max(sal) from Employee where sal not in(Select max(sal) from Employee);
+
+2.Select max Salary from every department
+
+ans - Select max(sal), deptNo from emp groupBy deptNo //remember in groupBy only 1st condition(like min or max)
+and column which is groupBy should be there.
+
+3.Count total employees from every department
+
+ans - Select count(*), deptNo from emp groupBy deptNo.
+
+4.Display empNo, sal, eName along with rowNum order by salary
+
+ans - Select rownum, empNo, sal, eName from emp order by sal
+
+5.Display above for alternate row nums
+
+ans - Select * from (select rownum rn, empNo, sal, eName from emp order by rn) where mod(rn,2) != 0
+
+6. Display only duplicate values
+
+ans - Select ename, count(*) from emp groupBy ename having count(*) > 1 // can not use where when we use groupBy
+
+7. Display whose name start with m, ends with n, having m, does not have m
+
+starts with m, ans where ename like 'm%'
+ends with n, '%n'
+having m , '%m%'
+not has m, ans where ename not like 'm%'
+
+8. Display names with
+with 4 letter - where ename like '____'
+with 2nd letter as L - where ename like '_l%'
+with 4th letter as M - where enamle like '___m%'
+names and hire dates for employees joined in dec - where hiredate like '%dec%'
+whose name has exactly two ls - ename like '%ll%'
+name starts with j and ends with s - ename like 'j%s'
+
+9. Display 4th row in table
+
+select * from emp where rownum >= 4 minus select * from emp where rownum >= 3
+
+or
+
+select * from (select rownum r, ename, sal from emp) where r = 6
+
+or
+
+select * from (select rownum r, emp.* from emp) where r in(2,3,6)
+
+10. Inner Join
+select emp, sal, dept.deptno from emp, dept where emp.deptno = dept.dept.no
+
+11. Self Join
+select e1.ename "employees", e2.ename "manager" from emp e1, emp e2 where e2.empno = e1.mgr
+12. Left Join
+select ename, sal from emp left join dep on emp.deptno = dep.deptno (will return null on column with no match
+on dep)
+13.Right Join
+vice versa of left
+14.Full Join - Full Join is combination of right and left, if a value doesn't match it will have null
+15.Cross Join - select ename, d.deptno, sal, dname, loc from emp e cross join dept d where d.deptno = '1';
+now in this type of join all the matching result from table 1 will multiply with every matching result from table 2
+we can further have criteria like using where to only display filetered results
+
+16.Get last two rows
+
+SELECT * from(select ROW_NUMBER() OVER(ORDER BY patient_id) AS num_row, first_name, last_name from patients)
+where num_row <= (select count(*)-1 from patients);
+or
+SELECT * from(select ROW_NUMBER() OVER(ORDER BY patient_id) AS num_row,* from patients)
+where num_row <= (select count(*)-1 from patients);
+
+Difference between Trigger and Procedure
+Trigger and Procedure both perform a specified task on their execution. The fundamental difference
+between Trigger and Procedure is that the Trigger executes automatically on occurrences of an event
+whereas, the Procedure is executed when it is explicitly invoked.
+
+ACID Properties
+
+ACID (Atomicity, Consistency, Isolation, Durability) is a set of properties that guarantee reliability and correctness
+of transactions in a database management system (DBMS). These properties ensure that database transactions are executed
+reliably and consistently, even in the presence of failures. Let's explore each of the ACID properties:
+
+Atomicity: Either all the operations within a transaction are executed successfully, or none of them are executed at all.
+If any part of the transaction fails, the entire transaction is rolled back, and the database is left unchanged.
+
+Consistency: It ensures that the integrity constraints, defined on the database, are not violated. In other words,
+the data remains consistent before and after the transaction is executed.
+
+Isolation: Isolation ensures that concurrent transactions do not interfere with each other. Each transaction appears
+to execute in isolation, as if it were the only transaction being executed in the system. Isolation prevents conflicts
+between transactions, maintaining data integrity and preventing dirty reads, non-repeatable reads, and phantom reads.
+
+Durability: Durability guarantees that once a transaction is committed, its changes are permanent and will survive
+any subsequent failures, such as power loss or system crashes. The committed transaction's effects are stored in
+a durable medium, such as a disk, and can be recovered in the event of a system failure.
+
+The ACID properties are essential for maintaining data integrity, ensuring reliability, and providing consistent
+results in database transactions. They are crucial in scenarios where multiple users concurrently access and
+modify the same data, preventing issues such as data corruption, data loss, and inconsistent results.
+
+Select statement
+It is DML Command. It is used to fetch data and store in result set based on certain criteria.
+
+Different clauses
+
+where clause = used to fetch data based on certain condition, used with select, update, delete. Used before group by.
+It filters data individually row wise.
+Having clause = used only with group by, first group by is applied and after that aggregated result is filtered by
+using having.
+From = table from which data is retrieved
+Group by = when the GROUP BY clause is used, the result set is divided into groups based on the specified columns.
+
+Result set
+The "result set" refers to the collection of rows that is returned as the output of a query
+
+Delete entire table
+using Drop = Drop table table name
+using Truncate = Truncate table table name
+using Delete = Delete from table name
+
+Constraints
+Specify particular rules for a particular data in table.
+They can be applied as column level constrain for particular column and limit the type
+of data or table level constraint for entire table to limit data.
+eg not null, default, index, unique, primary key, foreign key
+
+Alter of DDL VS Modify of DML
+
+
+ChatGPT
+In the context of SQL, "ALTER" and "MODIFY" are both keywords used in different scenarios for making changes to database
+objects. However, their specific usage and meaning can vary depending on the context.
+
+ALTER: The "ALTER" keyword is used as part of the "ALTER TABLE" statement to modify the structure of an existing table.
+It allows you to add or drop columns, modify column definitions, rename the table, and perform other table-level
+modifications. The "ALTER TABLE" statement is used to make changes to the structure of the table itself, such
+as adding or removing columns, changing column data types, modifying constraints, and more.
+
+Example:
+
+ALTER TABLE table_name ADD column_name datatype;
+
+MODIFY: The "MODIFY" keyword is used within the "ALTER TABLE" statement specifically to modify the definition of a
+column within an existing table. It is used when you want to change the properties or attributes of a particular
+column, such as the data type, length, or constraints associated with it.
+
+Example:
+ALTER TABLE table_name MODIFY column_name new_datatype;
+
+Note that the "MODIFY" keyword is not supported in all database management systems. Some systems use different keywords,
+such as "ALTER COLUMN" or "MODIFY COLUMN," to achieve the same effect.

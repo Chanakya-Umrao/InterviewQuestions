@@ -1,0 +1,237 @@
+API
+
+Application programming interface allows program to communicate, we can also say that it allows client to communicate
+with the server.
+
+Restful webservices
+Services that follow rest architecture. Rest stands for representational state transfer and uses http protocol for
+communication.
+
+Rest Resource
+The contents in the rest architecture is considered as resource. The REST Server provides access to these resources
+whereas the REST client consumes (accesses and modifies) these resources. Every resource is identified globally by
+means of a URI.
+
+Uniform Resource Identifier is the full form of URI which is used for identifying each resource of the REST architecture.
+eg - https://examplesite.com/page/example
+
+Uniform Resource Name identifies the resource by means of a name that is both unique and persistent.
+eg - examplesite.com/page/example
+
+Uniform Resource Locator has the information regarding fetching of a resource from its location.
+eg - https://examplesite.com/page/example
+
+Features
+Based on client server model
+Uses Http protocol
+
+Concept of Statelessness
+The REST architecture is designed in such a way that the client state is not maintained on the server. The context is
+provided by the client to the server using which the server processes the client’s request. The session on the
+server is identified by the session identifier sent by the client.
+
+JAX-RS
+As the name itself stands (JAX-RS= Java API for RESTful Web Services) is a Java-based specification defined by JEE
+(Java Enterprise Edition) for the implementation of RESTful services.
+
+HTTP Methods
+Get
+Put
+Post
+Delete
+Patch
+Options(Returns list of supported operation)
+
+What is difference between PUT and PATCH in rest?
+PUT means replace the entire resource with given data (so null out fields if they are not provided in therequest),
+while PATCH means replace only specified fields.
+
+Messaging in terms of restful webservices
+The technique of sending a message from the REST client to the REST server in the form of an HTTP request and the
+server responding back with the response as HTTP Response is called Messaging.
+
+Idempotent
+The meaning of idempotent is that even after calling a single request multiple times, the outcome of the request
+should be the same. Means it should not change the state. Eg get.
+
+Components of Http Request
+Method/Verb − This part tells what methods the request operation represents.
+Methods like GET, PUT, POST, DELETE, etc are some examples.
+
+URI − This part is used for uniquely identifying the resources on the server.
+
+HTTP Version − This part indicates what version of HTTP protocol you are using. An example can be HTTP v1.1.
+
+Request Header − This part has the details of the request metadata such as client type, the content format supported,
+message format, cache settings, etc.
+
+Request Body − This part represents the actual message content to be sent to the server.
+
+Components of Http Response
+
+Response Status Code − This represents the server response status code for the requested resource.
+Example- 400 represents a client-side error, 200 represents a successful response.
+
+HTTP Version − Indicates the HTTP protocol version.
+
+Response Header − This part has the metadata of the response message. Data can describe what is the content length,
+content type, response date, what is server type, etc.
+
+Response Body − This part contains what is the actual resource/message returned from the server.
+
+Payload
+Payload refers to the data passes in the request body. It is not the same as the request parameters.
+The payload can be sent only in POST methods as part of the request body.
+
+Using Logger we can use swagger
+
+Safe methods are those that do not change any resources internally. These methods can be cached and can be
+retrieved without any effects on the resource.
+
+Rest Template(Important)
+The RestTemplate is the main class meant for the client-side access for Spring-based RESTful services.
+The communication to the server is accomplished using the REST constraints. This is similar to other template classes
+such as JdbcTemplate, HibernateTemplate, etc provided by Spring. The RestTemplate provides high-level implementation
+details for the HTTP Methods like GET, POST, PUT, etc, and gives the methods to communicate using the URI template,
+URI path params, request/response types, request object, etc as part of arguments.
+
+Basically what rest template is suppose we have to consume an api, for eg like we run api using postman, so for the code level
+we can run rest template to hit an api.
+
+Difference Between Controller and Rest Controller(Imp)
+Controller is mostly used is Spring MVC where model data needs to be rendered using view
+RestController represents restful webservice in Spring, it is used in case of RESTful web service that returns object
+values bound to response body.
+
+Message Converter in terms of Spring Rest
+HttpMessageConverter is a strategic interface that specified a converter for conversion between HTTP Requests and responses.
+Spring REST uses the HttpMessageConverter for converting responses to various data formats like JSON, XML, etc.
+Spring makes use of the “Accept” header for determining the type of content the client expects.
+Based on this, Spring would find the registered message converter interface that is capable of this conversion.
+
+Difference between getForEntity and getForObject
+
+In get for object we will only get the class say Product p = restTemplate.getForObject(url, Product.class, id);
+where as in getForEntity we get entire response entity, via which we can access object or response status, or headers.
+ResponseEntity<Product> p = restTemplate.getForEntity(url, Product.class, id);
+p.getStatusCode(), p.getBody(), p.getHeaders();
+
+Advantage of Response Entity
+we can also send the status code.
+
+Why should you handle response time out while calling any api?
+Suppose 1 thread is accessing and is unable to fetch data from server1 to server2 then other thread is blocked due to this process, so
+to handle this we use server timeout.
+
+Server Timeout
+When we are unable to connect to server
+Read Timeout
+When we are able to connect to server but cannot read
+
+Versioning
+Labelling version of api so user can know, we can have the version in url, request param, headers
+
+What is Basic Authentication in REST API?
+
+Basic authentication is an HTTP-based authentication approach and is the simplest way to secure REST APIs. It uses a Base64 format to encode usernames
+and passwords, both of which are stored in the HTTP header.
+
+Session Authentication
+A session is a small file, most likely in JSON format, that stores information about the user, such as a unique ID, time of login and expirations, and so on.
+It is generated and stored on the server so that the server can keep track of the user requests. The user receives some of these details, especially the ID,
+as cookies that will be sent with every new request, so that the server can recognize the ID and authorize the user’s requests.
+
+Working
+The user sends a login request to the server.
+The server authenticates the login request, sends a session to the database, and returns a cookie containing the session ID to the user.
+Now, the user sends new requests (with a cookie).
+The server checks in the database for the ID found in the cookie, if the ID is found it sends the requested pages to the user.
+
+Token-Based Authentication
+A token is an authorization file that cannot be tampered with. It is generated by the server using a secret key, sent to and stored by the user in their local storage.
+Like in the case of cookies, the user sends this token to the server with every new request, so that the server can verify its signature and authorize the requests.
+
+Working
+The user sends a login request to the server.
+The server authorizes the login and sends a token to the user.
+Now, the user sends a new request(with a token).
+The server checks the token is valid or not, if the token is valid it sends the requested pages to the user.
+
+Better to use token based authentication with rest because rest is stateless and also session authentication is limited to one server but in microservices
+there would be many servers.
+
+The responsibility of each layer is different, but there are a few common aspects that apply to all layers are Logging, Security, validation, caching, etc.
+These common aspects are called cross-cutting concerns. If we implement these concerns in each layer separately, the code becomes more difficult to maintain.
+
+JWT Token
+
+whenever we hit our request on form, our request will come to UsernameOrPasswordAuthenticationFilter and after this attempt authentication will be called
+and here method will obtain username and password from form, from here UsernameAndPasswordAuthenticationToken of authentication interface will create a
+authentication object based on username and password, authenticationManager will further call the authenticate method for the particular authentication
+object. After this in the authenticationManager.authenticate, the role of this would be to get the appropriate authentication provider,
+after this it will call the provider.authenticate, for eg it can be AbstractUserDetailAuthenticationProvider, from here we will check for
+the authentication, in here daoauthentication provider will get called which will load the username, after that back in AbstractUserDetailAuthenticationProvider,
+
+Version of springboot
+stream check if one element is same in other
+reverse string
+difference between @component @repository and @service
+
+@RequestParam annotation is used to read the form data and bind it automatically to the parameter present
+in the provided method.
+
+1 parameter
+
+@GetMapping("/api/foos")
+public String getFoos(@RequestParam(required = false) String id) {
+    return "ID: " + id;
+}
+
+http://localhost:8080/spring-mvc-basics/api/foos?id=abc
+
+Multi Parameter Same Type
+
+@GetMapping("/api/foos")
+public String getFoos(@RequestParam List<String> id) {
+    return "IDs are " + id;
+}
+
+http://localhost:8080/spring-mvc-basics/api/foos?id=1,2,3
+
+or
+
+http://localhost:8080/spring-mvc-basics/api/foos?id=1&id=2
+
+Multi Parameter Diff Type
+
+@GetMapping("/data2")
+public String multiParam(
+    @RequestParam String id,
+    @RequestParam String name) {
+
+  return "id: " + id + ", name: " + name;
+}
+
+~ curl 'http://localhost:8080/data2?id=112&name=Jon'
+
+Path Variable
+@GetMapping("/foos/{id}")
+public String getFooById(@PathVariable String id) {
+    return "ID: " + id;
+}
+
+path variable can also have required = "false"
+
+Build Tool in Project used
+Maven
+Apache Maven is a powerful software project management tool used in the Java development environment to manage
+and build projects as well as to maintain dependencies. Maven uses an XML (pom.xml) for project configuration.
+
+Maven vs Jenkins
+A maven is a build tool designed to manage dependencies and the software lifecycle. It is also designed to work
+with plugins that allow users to add other tasks to the standard compile, test, package, install, deploy tasks.
+While, Jenkins is designed for the purpose of implementing Continuous Integration (CI).
+
+
+One service is dependent upon another and the other is taking long time.
+Use asynchronous communication

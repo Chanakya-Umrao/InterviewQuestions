@@ -1,0 +1,398 @@
+To create spring project we use spring initalizer, go to spring.io and create a project there.
+Starter dependency = set of jars required to run application
+What is Spring Framework
+The Spring Framework is an open-source Java framework that provides comprehensive infrastructure support for
+developing Java applications. It offers a wide range of features and functionalities, making it a popular
+choice for developing enterprise-grade applications.
+
+What is Spring Boot?
+Spring Boot is a module of the Spring Framework that provides Rapid Application Development (RAD) capabilities.
+It is used to create standalone Spring-based applications with minimal configuration requirements.
+
+Advantages:
+
+Embeds Tomcat and other JARs
+Provides a starter POM for easy Maven configuration
+Automatically configures Spring whenever possible
+Features of Spring Boot:
+
+Web development
+Spring application
+Application events and listeners
+Admin features
+The @RestController is a stereotype annotation. It combines the @Controller and @ResponseBody annotations.
+To use it, we need to import the org.springframework.web.bind.annotation package in our file.
+
+Spring Boot provides various properties that can be specified in the application.properties file of our project.
+These properties have default values, and we can set them in the properties file. Properties are used to configure
+values such as the server port number and database connection settings.
+
+Spring Boot offers built-in starters, which make development faster and more convenient. For example, if we want
+to get started with Spring and JPA, we can simply include the spring-boot-starter-data-jpa dependency.
+
+Spring Boot provides Actuator to manage our applications. Actuator is a tool that exposes HTTP endpoints, allowing
+us to monitor our application when it is pushed to production.
+
+Thymeleaf:
+Thymeleaf is a server-side Java template engine for web applications. Its main goal is to provide elegant and
+natural templates for web applications. It can be integrated with the Spring Framework and is ideal for HTML5
+Java web applications.
+
+The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration, and
+@ComponentScan with their default attributes. Spring Boot allows developers to use a single annotation instead
+of using multiple annotations individually.
+
+@Bean: It is a method-level annotation used as an alternative to the XML <bean> tag. It tells the method to
+produce a bean to be managed by the Spring container.
+
+@Component: It is a class-level annotation used to mark a Java class as a bean.
+@Controller: It is a class-level annotation, specializing in @Component. It marks a class as a web request
+handler, often used to serve web pages. By default, it returns a string indicating which route to redirect.
+It is mostly used with @RequestMapping annotation.
+
+@RequestMapping: It is used to map web requests. It has optional elements like consumes, header, method, name,
+params, path, produces, and value. It can be used at the class level as well as the method level.
+
+@Repository: It is a class-level annotation. A repository is a Data Access Object (DAO) that directly accesses
+the database. The repository performs all the operations related to the database.
+
+@EnableAutoConfiguration: It allows Spring Boot to look for auto-configuration beans on its classpath and
+apply them automatically.
+
+@SpringBootApplication: It denotes the main class of a Spring Boot application. This annotation combines
+
+@Configuration, @EnableAutoConfiguration, and @ComponentScan annotations with their default attributes.
+
+@Service: It is used at the class level and indicates that the class contains the business logic.
+ApplicationContext is an interface for providing configuration information to an application. Spring Framework
+provides multiple classes that implement this interface and help us use configuration information in applications.
+ApplicationContext provides standard bean factory lifecycle capabilities.
+
+The @EnableAutoConfiguration annotation enables Spring Boot to auto-configure the application context. It automatically
+creates and registers beans based on the included JAR files in the classpath and the beans defined by us.
+
+The @Configuration annotation is part of the Spring Core Framework. It indicates that the class has bean definition
+methods. While developing an application, we need to tell the Spring Framework to look for Spring-managed components.
+
+@ComponentScan enables Spring to scan for configurations, controllers, services, and other components that we define.
+
+While @Controller maps the model object to a view or template and makes it human-readable, @RestController
+simply returns the object, and the object data is directly written in the HTTP response as JSON or XML.
+
+Dependency Injection: Instead of creating a new object, Spring instantiates this object. The autowiring feature
+of the Spring Framework enables you to inject object dependencies implicitly.
+
+Bean
+Simply instance of class managed by spring container.
+
+Spring container
+The Spring container is at the core of the Spring Framework. The container will create the objects/beans, wire them together,
+configure them, and manage their complete life cycle from creation till destruction. The Spring container uses DI(dependency
+injection) to manage the components that make up an application.
+
+What is curl command?
+Client URL (cURL, pronounced “curl”) is a command line tool that enables data exchange between a device and a server
+through a terminal. Using this command line interface (CLI), a user specifies a server URL (the location where they
+want to send a request) and the data they want to send to that server URL.
+
+SpringApplication.run simply returns the object of application context
+
+@Component is a class-level annotation, but @Bean is at the method level, so @Component is only an option when a
+class's source code is editable.
+@Bean can always be used, but it's more verbose. @Component is compatible with Spring's auto-detection, but @Bean
+requires manual class instantiation.
+Bean works only when class is also annotated with @Configuration but Component does not require configuration.
+
+What is the difference between @bean and @configuration?
+@Configuration - It is like beans. xml but Java-based bean configuration. It means class annotated with this annotation
+is the place where beans are configured and will be a candidate for auto-detection. In this class, methods are annotated
+with @Bean which return an object of the class.
+
+Bean Lifecycle
+
+Container started -> bean instantiated -> @post construct annotation with method(eg db connection on) ->
+further methods -> @predestroy annotation with method(db connection close)
+
+ApplicationContext represents the Spring IoC(Inversion of Control) container and is responsible for instantiating,
+configuring, and assembling the aforementioned beans.The container gets its instructions on what objects to instantiate,
+configure, and assemble by reading configuration metadata.
+
+Spring provides further stereotype annotations: @Component, @Service, and @Controller. @Component is a generic stereotype
+for any Spring-managed component.
+
+@Repository, @Service, and @Controller are specializations of @Component for more specific use cases (in the persistence,
+service, and presentation layers,
+respectively). Therefore, you can annotate your component classes with @Component, but,
+by annotating them with @Repository, @Service, or @Controller instead, your classes are more properly suited for processing
+by tools or associating with aspects.
+
+For example, these stereotype annotations make ideal targets for pointcuts. @Repository, @Service, and @Controller can also
+carry additional
+semantics in future releases of the Spring Framework. Thus, if you are choosing between using @Component or @Service for
+your service layer,
+@Service is clearly the better choice. Similarly, as stated earlier, @Repository is already supported as a marker for
+automatic exception translation in your persistence layer.
+
+Spring bean scopes
+
+These are of 7 types
+
+singleton - only one instance of the spring bean will be created for the spring container. This is the default
+spring bean scope. While using this scope, make sure bean doesn’t have shared instance variables otherwise it
+might lead to data inconsistency issues.
+
+prototype – A new instance will be created every time the bean is requested from the spring container.
+
+request – This is same as prototype scope, however it’s meant to be used for web applications. A new instance of the
+bean will be created for each HTTP request.
+
+session – A new bean will be created for each HTTP session by the container.
+
+Global Session: This scope is similar to the session scope, but it is only applicable in the context of a Portlet-based web
+application. A global session-scoped bean is created once per global session and is shared across all portlets within
+the same global session.
+
+Application: This scope is specific to web applications and is available only in a servlet-based Spring application
+context. An application-scoped bean is created once per servlet context and is shared across all requests within
+the same context.
+
+WebSocket: This scope is specific to web applications that use WebSocket communication. A WebSocket-scoped bean
+is created once per WebSocket connection and is available for the duration of the WebSocket connection.
+
+Spring IoC is the mechanism to achieve loose-coupling between Objects dependencies. To achieve loose
+coupling and dynamic binding of the objects at runtime, objects dependencies are injected by other assembler objects.
+
+Inversion of Control
+The IoC container is responsible to instantiate, configure and assemble the objects. The IoC container gets
+informations from the XML file and works accordingly.
+
+The main tasks performed by IoC container are:
+
+to instantiate the application class
+to configure the object
+to assemble the dependencies between the objects
+There are two types of IoC containers. They are:
+
+BeanFactory
+ApplicationContext
+
+The org.springframework.beans.factory.BeanFactory and the org.springframework.context.ApplicationContext interfaces
+acts as the IoC container. The ApplicationContext interface is built on top of the BeanFactory interface.
+It adds some extra functionality than BeanFactory such as simple integration with Spring's AOP, message
+resource handling (for I18N), event propagation, application layer specific context
+(e.g. WebApplicationContext) for web application. So it is better to use ApplicationContext than BeanFactory.
+
+Spring @Autowired annotation is used for automatic dependency injection. Spring framework is built on
+dependency injection and we inject the class dependencies through spring bean configuration file
+
+Spring Boot actuator has number of features, it is used to help you monitor your application when you push it to
+production, you can choose to manage and monitor your application by using http endpoints, or with jmx, auditing
+health, and metrics gathering, can also be automatically aligned to application.
+
+
+Autowired means automatic wiring of bean dependencies. @Autowired is a specific annotation provided by the Spring Framework to
+implement DI.
+
+Container is different than iocContainer, container is runtime and manages the entire lifecycle of the application
+such as apache tomcat, whereas the ioccontainer manages development in such a way that it makes inject dependencies
+easily, autowiring, annotations, life cycle of bean
+
+@Transactional
+In Spring Boot, @Transactional is an annotation used to define transactional behavior for methods or classes. When
+a method or class is marked with @Transactional, it enables the automatic management of database transactions by
+the Spring framework. The @Transactional annotation provides the ACID benefits.
+
+Dependency Injections in spring boot
+DI is a design pattern that allows the dependencies of a class to be provided from an external source rather than being
+created within the class itself.It allows objects to be loosely coupled
+and dependencies to be managed by an external entity. In DI, the dependencies of a class are "injected" into it, rather
+than the class creating or managing its dependencies itself.
+
+there are different types in which Dependency Injection is done
+1.Constructor Injection
+@Service
+public class MyService {
+    private final MyDependency dependency;
+
+    @Autowired
+    public MyService(MyDependency dependency) {
+        this.dependency = dependency;
+    }
+}
+
+2.Setter Injection
+@Service
+public class MyService {
+    private final MyDependency dependency;
+
+    @Autowired
+    public void setDependency(MyDependency dependency) {
+        this.dependency = dependency;
+    }
+}
+3.Field Injection(Basically a default constructor injection)
+@Service
+public class MyService {
+    @Autowired
+    private MyDependency dependency;
+}
+
+
+4.Interface Injection(Rarely Used)
+@Service
+public class MyService implements MyServiceInterface {
+    private MyDependency dependency;
+
+    @Autowired
+    public void setDependency(MyDependency dependency) {
+        this.dependency = dependency;
+    }
+}
+
+First two can be used when the field is final as it will help with immutability
+
+Tight Coupling
+Tight coupling refers to a strong dependency between two or more components in a system.
+
+Suppose there are two classes A and B, b is directly calling A's method and suppose in future if A's method changes
+then B will also need to modify.
+
+
+
+Spring Annotations Cheatsheet
+
+Spring Boot Main Annotations:
+
+@SpringBootApplication: This is the main annotation used to bootstrap a Spring Boot application. It combines three
+annotations: @Configuration, @EnableAutoConfiguration, and @ComponentScan. It enables auto-configuration, component
+scanning, and sets up the Spring application context.
+
+@ComponentScan: This annotation is used to specify the base package(s) to scan for Spring components such as controllers,
+services, repositories, etc. It allows Spring to discover and instantiate beans within the specified package(s).
+It knows how to scan the package as if suppose a class has this annotation so it will scan that entire package that
+class belong to, now if it is in main application means it will scan entire application.
+
+@EnableAutoConfiguration: This annotation enables Spring Boot's auto-configuration mechanism. It automatically configures
+the application based on the classpath dependencies and the properties defined in the project.
+
+@Configuration: This annotation indicates that a class declares one or more bean definitions. It is used in conjunction
+with @Bean to define beans explicitly in Java configuration.
+
+Stereotype Annotations:
+
+@Component: This annotation is a generic stereotype for any Spring-managed component. It marks a class as a candidate
+for auto-detection and instantiation as a bean.
+
+@Service: This annotation is used to indicate that a class is a service component in the business layer. It is typically
+used to define business logic.
+
+@RestController / @Controller: These annotations are used to mark a class as a controller component in the MVC pattern.
+@RestController is a specialized version of @Controller that combines @Controller and @ResponseBody. It is commonly
+used for building RESTful APIs.
+
+@Repository: This annotation is used to indicate that a class is a repository component, responsible for data access
+and persistence. It typically encapsulates database operations.
+
+
+Spring Core Annotations:
+
+@Configuration: Indicates that a class is a configuration class that may contain bean definitions. It is used in conjunction
+with @Bean to define beans explicitly in Java configuration.
+
+@Bean: Used to declare a bean, which is a managed object created and managed by the Spring container.
+
+@Autowired: Marks a constructor, field, or method as to be autowired by Spring's dependency injection capabilities.
+It allows dependencies to be resolved and injected automatically.
+
+@Qualifier: Specifies the bean qualifier when multiple beans of the same type are available. It is used along with
+@Autowired to disambiguate between multiple beans.
+
+@Lazy: Delays the initialization of a bean until the first time it is requested. It is useful for optimizing resource
+usage by creating beans only when necessary.
+
+@Value: Injects values from properties files or other sources into beans. It is commonly used to inject configuration values.
+eg
+    @Value("${my.property}")
+    private String myProperty;
+
+my.property=Hello, World!
+
+
+@PropertySource: Specifies the properties file to be used as a source for bean property values. Suppose an external
+property file called custom.properties then using @PropertySource("classpath:custom.properties") and to get value
+simply use @value on variable
+
+@ConfigurationProperties: Binds and validates the external configuration properties to a Java bean. It simplifies the
+process of reading configuration properties. Suppose there are lot of mail."somekeyword" in the application.properties,
+then rather using value for each, we can simply use this annotation on class level and simply declare the varible
+named eg mail.from in application properties, then first use @ConfigurationProperties(prefix = "mail")
+then simply declare variable named from
+
+
+@Profile: Specifies the profile(s) under which a bean or component is active. It allows defining beans specific to
+certain environments or configurations.
+Used for informing which environment we are using suppose dev. then profile will be "dev" and properties file would be
+@application-dev.properties
+
+@Scope: Specifies the scope of a bean, such as singleton, prototype, request, session, etc. It defines the lifecycle
+and visibility of a bean.
+
+REST API Annotations:
+
+@RestController: Combines the @Controller and @ResponseBody annotations. It marks a class as a RESTful controller that
+directly returns the response as the body of the HTTP response.
+
+@RequestMapping: Maps an HTTP request to a method or controller class. It specifies the URL path and the HTTP method(s)
+that the method or class should handle.
+
+@GetMapping: Maps an HTTP GET request to a method. It is a shortcut for @RequestMapping(method = RequestMethod.GET).
+
+@PostMapping: Maps an HTTP POST request to a method. It is a shortcut for @RequestMapping(method = RequestMethod.POST).
+
+@PutMapping: Maps an HTTP PUT request to a method. It is a shortcut for @RequestMapping(method = RequestMethod.PUT).
+
+@DeleteMapping: Maps an HTTP DELETE request to a method. It is a shortcut for @RequestMapping(method = RequestMethod.DELETE).
+
+@RequestBody: Binds the request body to a method parameter. It is used to extract data from the request body in a RESTful API.
+
+@PathVariable: Retrieves a value from the URI path and binds it to a method parameter. It is used to extract path parameters
+from the request URL.
+
+@RequestParam: Retrieves a query parameter value from the request URL and binds it to a method parameter.
+
+@ControllerAdvice & @ExceptionHandler: Used for global exception handling in controllers. @ControllerAdvice defines a
+global exception handler, while @ExceptionHandler handles specific exceptions.
+
+Spring Data JPA related annotations:
+
+@Entity: Indicates that a class is a JPA entity, representing a table in a relational database. It is typically used to
+annotate domain model classes.
+
+@Table: Specifies the table name for an entity. It is used to customize the table name if it differs from the default
+naming strategy.
+
+@Column: Specifies the column name for a persistent property of an entity. It is used to customize the column name if
+it differs from the default naming strategy.
+
+@Transactional: Specifies that a method or class should be executed within a transactional context. It ensures the
+ACID (Atomicity, Consistency, Isolation, Durability) properties of database transactions.
+
+@OneToOne: Establishes a one-to-one relationship between two entities. It is used to define a single-valued association
+between two entities based on a foreign key column.
+
+@OneToMany: Defines a one-to-many relationship between two entities. It is used to define a collection-valued association
+where one entity has a collection of another entity.
+
+@ManyToOne: Represents a many-to-one relationship between two entities. It is used to define a single-valued association
+where multiple entities are associated with a single entity.
+
+@ManyToMany: Defines a many-to-many relationship between two entities. It is used to define a collection-valued
+association where multiple entities are associated with multiple entities.
+
+If we hit requestmapping instead of getmapping, the code will work but it will create ambiguity and less
+expressive
+
+
+Spring is loosely coupled as eg UserRepo repo = new UserRepo(); in this tightly coupled scenario we ourself are creating
+the object and any change in repo will mean we have to change that as well but let's say we di this by autowiring, now
+it is ioc responsibility to create instance of same based on it's type.
